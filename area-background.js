@@ -49,6 +49,15 @@ function setupStyles(layout) {
   const styleElement = document.createElement('style')
   styleElement.id = id
   styleElement.innerHTML = `
+    #area-background {
+      position: fixed;
+      inset: 0;
+      opacity: 0.4;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      filter: blur(10px);
+    }
     hui-view {
       background: none!important;
     }
@@ -63,13 +72,6 @@ function getBackgroundElement(layout) {
 
   backgroundElement = document.createElement('div')
   backgroundElement.id = id
-  backgroundElement.style.position = 'fixed'
-  backgroundElement.style.inset = 0
-  backgroundElement.style.opacity = 0.3
-  backgroundElement.style.backgroundRepeat = 'no-repeat'
-  backgroundElement.style.backgroundPosition = 'center'
-  backgroundElement.style.backgroundSize = 'cover'
-  backgroundElement.style.filter = `blur(10px)`
   layout.prepend(backgroundElement)
   return backgroundElement
 }
@@ -79,7 +81,7 @@ function setBackground(element, url) {
   element.style.backgroundImage = `url('${url}')`
 }
 
-function unsetBackgrount(element) {
+function unsetBackground(element) {
   element.style.display = 'none'
 }
 
@@ -106,7 +108,7 @@ function maybeSetBackground(hass) {
   if (areaBackground) {
     setBackground(backgroundElement, hass.areas[areaBackground].picture)
   } else {
-    unsetBackgrount(backgroundElement)
+    unsetBackground(backgroundElement)
   }
 }
 
