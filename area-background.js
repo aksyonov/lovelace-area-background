@@ -58,11 +58,8 @@ function setupStyles(layout) {
       background-size: cover;
       filter: blur(10px);
     }
-    hui-view {
+    #view, hui-view {
       background: none!important;
-    }
-    style {
-      display: none!important;
     }
   `
   layout.prepend(styleElement)
@@ -98,7 +95,7 @@ function maybeSetBackground(hass) {
   if (!lovelacePanel) return
 
   const { lovelace } = lovelacePanel
-  const layout = lovelacePanel.shadowRoot.querySelector('hui-root').shadowRoot.querySelector('ha-app-layout, #view')
+  const layout = lovelacePanel.shadowRoot.querySelector('hui-root').shadowRoot.firstElementChild
   const currentView = window.location.pathname.split('/').pop()
   const viewConfig = isNaN(currentView)
     ? lovelace.config.views.find((v) => v.path === currentView)

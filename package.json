@@ -1,6 +1,6 @@
 {
   "name": "lovelace-area-background",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Sets the background of your Home Assistant view to match the picture of a specific area",
   "main": "area-background.js",
   "repository": {
