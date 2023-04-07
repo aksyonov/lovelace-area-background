@@ -4,7 +4,7 @@ function setupEditor() {
 
   const firstUpdated = HuiViewEditor.prototype.firstUpdated
   HuiViewEditor.prototype.firstUpdated = function () {
-    firstUpdated?.bind(this)()
+    firstUpdated?.apply(this)
 
     const oldSchema = this._schema
     this._schema = (localize) => {
@@ -117,20 +117,21 @@ function start() {
 
   maybeSetBackground(hass)
 
-  let url = location.href
-  document.body.addEventListener('click', () => {
-    requestAnimationFrame(() => {
-      if (url !== location.href) {
-        maybeSetBackground(hass)
-        url = location.href
-      }
-    })
-  })
-
   window.addEventListener('popstate', () => {
     maybeSetBackground(hass)
-    url = location.href
   })
+
+  const originalPushState = window.history.pushState
+  window.history.pushState = function () {
+    originalPushState.apply(this, arguments)
+    maybeSetBackground(hass)
+  }
+
+  const originalReplaceState = window.history.replaceState
+  window.history.replaceState = function () {
+    originalReplaceState.apply(this, arguments)
+    maybeSetBackground(hass)
+  }
 }
 
 customElements.whenDefined('hui-view').then(start)
